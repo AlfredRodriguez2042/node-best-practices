@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    // "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
