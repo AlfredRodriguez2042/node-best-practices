@@ -1,11 +1,39 @@
-version: "3.7"
+version: '3.9'
 services:
   db:
     image: postgres:alpine
     container_name: mypostgres
     ports:
-      - 5432:5432
+      - '${DB_PORT}'
     environment:
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-postgres}"
-      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
-      POSTGRES_DB: "${POSTGRES_DB:-practica}"
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-postgres}'
+      POSTGRES_USER: '${POSTGRES_USER:-postgres}'
+      POSTGRES_DB: '${POSTGRES_DB:-practica}'
+    networks:
+      - backend
+
+  node:
+    image: nodebp
+    container_name: nodebp
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+    command: npm run dev
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./:/home/node/app
+    networks:
+      - backend
+    environment:
+      DB_HOST: db
+    links:
+      - db
+
+networks:
+  backend:
+    external: true
+    name: backend
+    driver: bridge

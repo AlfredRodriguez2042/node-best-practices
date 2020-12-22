@@ -4,6 +4,7 @@ import { createTypeormConn } from './db'
 import dotEnv from 'dotenv'
 dotEnv.config()
 
+const PORT = process.env.BACKEND_PORT || 4000
 export class App {
   private app: Application
 
@@ -13,10 +14,9 @@ export class App {
   }
 
   async start() {
-    await createTypeormConn()
-    console.log(process.env.NODE_ENV)
-    return await this.app.listen(4000, () => {
-      console.log(`App listen on port 4000`)
+   await createTypeormConn()
+    return await this.app.listen(PORT, () => {
+      console.log(`App listen on port ${PORT}`)
     })
   }
 }
