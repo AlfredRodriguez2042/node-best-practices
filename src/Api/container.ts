@@ -11,24 +11,36 @@ import { UserController } from './Controllers'
 import routes from './routes'
 import UserRouter from './routes/User.Router'
 import { Server } from './Server'
+import {UserServices} from "../Services/UserServices"
+import {UserRepository}  from "../Dal/Repositories"
 
 const container: AwilixContainer = createContainer()
 
+ // Aplication Layer
 container.register({
   app: asClass(App).singleton(),
   server: asClass(Server).singleton(),
-})
-
-container.register({
   router: asFunction(routes).singleton(),
-})
-
-container.register({
   UserRouter: asFunction(UserRouter).singleton(),
-})
-container.register({
   UserController: asClass(UserController).singleton(),
 })
+
+// Service Layer
+container.register({
+  UserServices: asClass(UserServices).singleton(),
+
+})
+
+// Domain Layer
+container.register({
+})
+
+// Data Layer (dal)
+container.register({
+  UserRepository:asClass(UserRepository).singleton(),
+ // UserEntity:asClass(UserEntity).singleton()
+})
+
 // if(dbConnection){
 //   container.register({
 //     typeOrmConnection:asFunction(()=>dbConnection,{lifetime:Lifetime.TRANSIENT})

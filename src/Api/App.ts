@@ -1,6 +1,4 @@
 import express, { Application } from 'express'
-import 'reflect-metadata'
-import { createTypeormConn } from './db'
 import dotEnv from 'dotenv'
 dotEnv.config()
 
@@ -14,7 +12,6 @@ export class App {
   }
 
   async start() {
-   await createTypeormConn()
     return await this.app.listen(PORT, () => {
       console.log(`App listen on port ${PORT}`)
     })

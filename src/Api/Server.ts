@@ -1,6 +1,6 @@
 export class Server {
   public _app
-  constructor({ app }) {
+  constructor({ app }:any) {
     this._app = app
   }
   async start() {
