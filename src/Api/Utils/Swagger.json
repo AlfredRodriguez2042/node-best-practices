@@ -1,0 +1,8 @@
+{
+  "openapi":"3.0.0",
+  "info":{
+    "version": "1.0.0",
+    "title":"Node Best Practice Boilerplate",
+    "description":"a minimal api and best practices for node "
+  }
+}
