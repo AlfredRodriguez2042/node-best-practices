@@ -1,7 +1,18 @@
-import { Router } from 'express'
+import { Router, urlencoded, json } from 'express'
+import cors from 'cors'
+import compression from 'compression'
+import statusMonitor from 'express-status-monitor'
 
-export default ({ UserRouter }) => {
+export default ({ UserRouter }: any) => {
   const router = Router()
+
+  if (process.env.NODE_ENV !== 'production') {
+    router.use(statusMonitor())
+  }
+  router.use(cors())
+  router.use(compression())
+  router.use(json())
+  router.use(urlencoded({ extended: true }))
   router.use('/user', UserRouter)
   return router
 }
