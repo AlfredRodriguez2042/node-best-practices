@@ -13,6 +13,7 @@ import swaggerDoc from './Utils/Swagger.json'
 import { Server } from './Server'
 import { UserServices } from '../Services/UserServices'
 import { UserRepository } from '../Dal/Repositories'
+import { SecurityApp } from './Middlewares/Security'
 
 const container: AwilixContainer = createContainer()
 
@@ -20,8 +21,10 @@ const container: AwilixContainer = createContainer()
 container.register({
   app: asClass(App).singleton(),
   server: asClass(Server).singleton(),
+  security: asClass(SecurityApp).singleton(),
 
   SwaggerDoc: asValue(swaggerDoc),
+  //Swagger: asValue(swagger),
   router: asFunction(routes).singleton(),
 
   UserRouter: asFunction(UserRouter).singleton(),
