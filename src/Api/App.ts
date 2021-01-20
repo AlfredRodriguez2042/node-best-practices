@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import dotEnv from 'dotenv'
 import { Logger } from './Utils/Logger'
+import { httpsRedirect, wwwRedirect } from './Utils/Redirect'
 dotEnv.config()
 
 const PORT = process.env.BACKEND_PORT || 4000
@@ -16,10 +17,12 @@ export class App {
     this.middleware()
     this.routes()
   }
-  async middleware() {
+  private async middleware() {
     this._security.Middlewares(this.app)
   }
-  routes() {
+  private routes() {
+    this.app.use('/*', httpsRedirect())
+    this.app.use('/*', wwwRedirect())
     this.app.use('/api', this._router)
   }
   async start() {
