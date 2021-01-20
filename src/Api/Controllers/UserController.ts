@@ -2,7 +2,7 @@ import { IUserDto } from '../Dto'
 import { Request, Response } from 'express'
 
 export class UserController {
-  public _userServices
+  private _userServices
   constructor({ UserServices }: any) {
     this.show = this.show.bind(this)
     this._userServices = UserServices
@@ -16,7 +16,7 @@ export class UserController {
 
   async getUsers(req: Request, res: Response): Promise<any> {
     const users = await this._userServices.getUsers()
-    console.log(req.cookies)
+    console.log(req.session)
     return res.send({ users })
   }
   async createUsers(req: Request, res: Response): Promise<any> {

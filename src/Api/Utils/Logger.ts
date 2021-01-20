@@ -58,6 +58,11 @@ const consoleLogger = winston.createLogger({
     }),
   ],
 })
+export const stream = {
+  write: (message: string) => {
+    logger.info(message)
+  },
+}
 
 /**
  * The logging service that includes functionalities to log any error, info or warnings.

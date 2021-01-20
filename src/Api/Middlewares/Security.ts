@@ -1,10 +1,11 @@
-import { Request, Response, NextFunction, json, urlencoded } from 'express'
+import { json, urlencoded } from 'express'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import csurf from 'csurf'
 import morgan from 'morgan'
 import Session from 'express-session'
-import { Logger } from '../Utils/Logger'
+import { stream } from '../Utils/Logger'
+import { internalServerError } from '../Utils/Errors'
 
 export class SecurityApp {
   // public app: Application
@@ -12,12 +13,16 @@ export class SecurityApp {
     //   this.app = express()
   }
   Middlewares(app: any) {
-    app.use(morgan('dev'))
+    if (process.env.NODE_ENV !== 'production') {
+      app.use(morgan('dev'))
+    } else {
+      app.use(morgan('combined', { stream }))
+      app.use(helmet())
+    }
     app.use(json({ limit: '50mb' }))
     app.use(
       urlencoded({ extended: true, limit: '50mb', parameterLimit: 50000 })
     )
-    app.use(helmet())
     app.use(cookieParser(process.env.SESSION_SECRET))
     app.use(
       Session({
@@ -36,7 +41,6 @@ export class SecurityApp {
     }
 
     app.use((req: any, res: any, next: any) => {
-      console.log(req.query)
       // write the csrf cookie in the response in the ‘XSRF-TOKEN’ field
       // The client must pass 'x-xsrf-token' or 'x-csrf-token'
       // or 'xsrf-token' or 'csrf-token' in the header with the value set
@@ -49,11 +53,6 @@ export class SecurityApp {
 
       next()
     })
-    app.use(
-      (err: any, req: Request, res: Response, next: NextFunction): void => {
-        Logger.error(err)
-        next(err)
-      }
-    )
+    app.use(internalServerError)
   }
 }

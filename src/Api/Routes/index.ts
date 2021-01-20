@@ -9,6 +9,7 @@ export default ({ UserRouter, SwaggerDoc }: any) => {
   const router = Router()
 
   if (process.env.NODE_ENV !== 'production') {
+    // path /status
     router.use(statusMonitor())
   }
   // router.use(cors())
