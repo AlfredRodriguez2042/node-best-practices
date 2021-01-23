@@ -4,6 +4,7 @@ import compression from 'compression'
 import statusMonitor from 'express-status-monitor'
 import swaggerUI from 'swagger-ui-express'
 import HealthCheck from '../Utils/HealthCheck'
+import { Prometheus } from '../Utils/Prometheus'
 //import { swaggerSpec } from '../Utils/Swagger'
 
 export default ({ UserRouter, SwaggerDoc }: any) => {
@@ -18,6 +19,7 @@ export default ({ UserRouter, SwaggerDoc }: any) => {
   router.use(json())
   router.use(urlencoded({ extended: true }))
 
+  router.use('/metrics', Prometheus)
   router.use('/healthcheck', HealthCheck)
   router.use('/docs', swaggerUI.serve, swaggerUI.setup(SwaggerDoc))
   // router.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerSpec))

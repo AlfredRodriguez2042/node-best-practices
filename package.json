@@ -26,6 +26,7 @@
     "os": "^0.1.1",
     "pg": "^8.5.1",
     "progress": "^2.0.3",
+    "prom-client": "^13.0.0",
     "reflect-metadata": "^0.1.13",
     "swagger-express-middleware": "^4.0.2",
     "swagger-jsdoc": "^3.7.0",
