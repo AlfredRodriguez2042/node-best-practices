@@ -14,6 +14,7 @@ import { Server } from './Server'
 import { UserServices } from '../Services/UserServices'
 import { UserRepository } from '../Dal/Repositories'
 import { SecurityApp } from './Middlewares/Security'
+import { UserDomain } from '../Domain/UserDomain'
 
 const container: AwilixContainer = createContainer()
 
@@ -37,7 +38,9 @@ container.register({
 })
 
 // Domain Layer
-container.register({})
+container.register({
+  UserDomain: asClass(UserDomain).singleton(),
+})
 
 // Data Layer (dal)
 container.register({

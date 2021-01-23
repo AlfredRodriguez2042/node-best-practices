@@ -12,10 +12,10 @@ export default ({ UserRouter, SwaggerDoc }: any) => {
     // path /status
     router.use(statusMonitor())
   }
-  // router.use(cors())
-  // router.use(compression())
-  // router.use(json())
-  // router.use(urlencoded({ extended: true }))
+  router.use(cors())
+  router.use(compression())
+  router.use(json())
+  router.use(urlencoded({ extended: true }))
 
   router.use('/docs', swaggerUI.serve, swaggerUI.setup(SwaggerDoc))
   // router.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
