@@ -3,6 +3,7 @@ import cors from 'cors'
 import compression from 'compression'
 import statusMonitor from 'express-status-monitor'
 import swaggerUI from 'swagger-ui-express'
+import HealthCheck from '../Utils/HealthCheck'
 //import { swaggerSpec } from '../Utils/Swagger'
 
 export default ({ UserRouter, SwaggerDoc }: any) => {
@@ -17,6 +18,7 @@ export default ({ UserRouter, SwaggerDoc }: any) => {
   router.use(json())
   router.use(urlencoded({ extended: true }))
 
+  router.use('/healthcheck', HealthCheck)
   router.use('/docs', swaggerUI.serve, swaggerUI.setup(SwaggerDoc))
   // router.use('/swagger', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
   router.use('/user', UserRouter)
