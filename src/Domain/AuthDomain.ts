@@ -7,6 +7,7 @@ export class AuthDomain {
   }
   async login(user: IUser): Promise<any> {
     const _user = this._authDomain.login(user)
-    return
+
+    return { _user }
   }
 }
