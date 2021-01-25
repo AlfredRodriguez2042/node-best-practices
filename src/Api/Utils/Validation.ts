@@ -29,3 +29,11 @@ export const loginValidation = (user: IUserDto) => {
   })
   return schema.validate(user)
 }
+
+export const verify = (value: any, error: any) => {
+  if (value) {
+    throw new Error(
+      ` User validation failed: " ${error} " has already been taken`
+    )
+  }
+}

@@ -26,7 +26,7 @@ export class SecurityApp {
     app.use(cookieParser(process.env.SESSION_SECRET))
     app.use(
       Session({
-        secret: process.env.SESSION_SECRET || 'secret',
+        secret: process.env.SESSION_SECRET as string,
         resave: false,
         saveUninitialized: false,
         cookie: {

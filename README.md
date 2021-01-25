@@ -1,6 +1,6 @@
-## Clean code and best practices in node with Solid
+# Clean code and best practices in node with Solid
 
-### Architecture Layers
+## Architecture Layers
 
 - Cada capa tiene un rol y una tarea unica
 - tienen que haber capas de alto y bajo nivel
@@ -8,10 +8,10 @@
   - las de bajo nivel lee y escribe datos o interactua con el hardware
 - cada capa crea una abstraccion de la funcionalidad que ofrece
   - las capas no se conocen entre si
-  - se conectan por inyeccion de dependencias
+  - se conectan por inyeccion de dependencias(IOC)
 - la cantidad de capas es de acuerdo a tus necesidades
 
-#### Presentation Layer
+### Presentation Layer
 
 - se encarga de manejar la interacion entre un cliente y la aplicacion
 - entrega y solicita informacion
@@ -19,9 +19,15 @@
 
 #### Aplication Layer
 
+1. Domain or Bussines
+
 - es la que contine la logica de negocio
 - esconde el acceso a datos
-- validar los de la capa de presentacion
+
+2. Services
+
+- valida los datos de la capa de presentacion
+- se conecta con otros servicios como amazon s3, oauth
 
 #### Data Layer
 
